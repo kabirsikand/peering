@@ -1,0 +1,10 @@
+name = "peering"
+type = "webpack"
+account_id = "c7c15d640c62b31052dfe8ffaf22aa66"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket="./public"
+entry-point="./"
