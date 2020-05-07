@@ -1,14 +1,17 @@
 import {NetworkExchange} from './netixlan'
 import {NetworkFacility} from './netfac'
-import {peeringDb} from '../utils/constants'
+import {findAsn, fetchAdditionalDetails} from "../utils/pdbinterface"
 
 export class Network {
-	constructor(net){
-		console.log("::Network::constructor")
+	constructor(asn) {
+		this.asn = asn
+	}
+
+	async populate(){
+		const net = await findAsn(this.asn)
 		this.id = net['id']
 		this.name = net['name']
 		this.website = net['website']
-		this.asn = net['asn']
 		this.notes = net['notes']
 
 		this.exchanges = {}
@@ -22,5 +25,21 @@ export class Network {
 			const netFac = new NetworkFacility(net['netfac_set'][i])
 			this.facilities[netFac.id] = netFac
 		}
+		return this
+	}
+
+	compareItems(listA, listB, sharedItems) {
+		for (let key in listA) {
+			if(listB[key]) {
+				sharedItems[key] = listA[key]
+			}
+		}
+		return sharedItems
+	}
+
+	async compare(network) {
+		const sharedFacilities = this.compareItems(this.facilities, network.facilities, {})
+		const sharedExchanges = this.compareItems(this.exchanges, network.exchanges, {})
+		return await fetchAdditionalDetails(sharedFacilities, sharedExchanges)
 	}
 }

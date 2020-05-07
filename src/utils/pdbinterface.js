@@ -1,4 +1,4 @@
-import {peeringDb} from '../utils/constants'
+import {peeringDb} from './constants'
 
 async function fetchPdbData(path) {
 	const response = await fetch(new Request(peeringDb['baseUrl'] + path))
@@ -26,7 +26,6 @@ async function fetchAdditionalDetails(facilities, exchanges) {
 }
 
 async function findAsn(asn) {
-	console.log("::findAsn")
 	const data = await fetchPdbData(peeringDb['netEndpoint'] + "?" + `asn__in=${asn}&depth=2`)
 	return data[0]
 }
