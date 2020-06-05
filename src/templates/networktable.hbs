@@ -1,0 +1,25 @@
+{{#if this.sharedItems.length}}
+  <h4>Shared facilities and exchanges between {{this.cfNetwork.name}} and {{this.otherNetwork.name}}</h4>
+  <table>
+      <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Networks</th>
+            <th>Type</th>
+          </tr>
+      </thead>
+      <tbody>
+        {{#each this.sharedItems}}
+          <tr>
+            <td>{{link this.name this.url}}</td>
+            <td>{{this.location}}</td>
+            <td>{{this.networks}}</td>
+            <td>{{this.type}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+  </table>
+{{else}}
+  <h4>No shared exchanges or facilities between {{this.cfNetwork.name}} and {{this.otherNetwork.name}}</h4>
+{{/if}}

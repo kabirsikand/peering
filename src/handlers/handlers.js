@@ -1,3 +1,5 @@
+import networkTable from '../templates/networktable.hbs'
+
 class NetworkComparisonHandler {
 	constructor({cfNetwork, otherNetwork, sharedItems}) {
 		console.log("::NetworkComparisonHandler::constructor")
@@ -7,26 +9,8 @@ class NetworkComparisonHandler {
 	}
 
 	element(element) {
-		if (this.sharedItems.length > 0) {
-			element.append(`
-				<h4>Shared Facilities and Exchanges between ${this.cfNetwork.name} and ${this.otherNetwork.name}</h4>
-        <table>
-            <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Location</th>
-                  <th>Networks</th>
-                  <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-            	${this.sharedItems.map((item) => { return item.toHTML() }).join("")}
-            </tbody>
-        </table>
-      `, { html: true })
-		} else {
-			element.append(`<h4>No shared Exchanges or Facilities between ${this.cfNetwork.name} and ${this.otherNetwork.name}</h4>`, { html: true })
-		}
+		console.log("::NetworkComparisonHandler::element")
+		element.append(networkTable(this), { html: true })
 	}
 }
 
@@ -49,5 +33,5 @@ class AsnHandler {
 }
 
 
-export {NetworkComparisonHandler, ErrorConditionHandler, AsnHandler}
+export { NetworkComparisonHandler, ErrorConditionHandler, AsnHandler }
 
