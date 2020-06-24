@@ -2,14 +2,12 @@ import networkTable from '../templates/networktable.hbs'
 
 class NetworkComparisonHandler {
 	constructor({cfNetwork, otherNetwork, sharedItems}) {
-		console.log("::NetworkComparisonHandler::constructor")
 		this.sharedItems = sharedItems
 		this.otherNetwork = otherNetwork
 		this.cfNetwork = cfNetwork
 	}
 
 	element(element) {
-		console.log("::NetworkComparisonHandler::element")
 		element.append(networkTable(this), { html: true })
 	}
 }
