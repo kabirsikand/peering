@@ -19,7 +19,12 @@ addEventListener('fetch', event => {
 })
 
 async function handleEvent(event) {
-  const response = await getAssetFromKV(event, { mapRequestToAsset: serveSinglePageApp })
+  let cache = caches.default
+  let response = await cache.match(event.request)
+  if (response) {
+    return response
+  }
+  response = await getAssetFromKV(event, { mapRequestToAsset: serveSinglePageApp })
   const url = new URL(event.request.url)
   const asn = url.searchParams.get('asn')
 
